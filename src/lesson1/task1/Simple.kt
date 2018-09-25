@@ -67,7 +67,7 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int = hours * 60 * 60 + min
  * Определить длину того же отрезка в метрах (в данном случае 18.98).
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
-fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = sagens * 48 * 4.445 / 100
+fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = sagenes * 48 * 4.445 / 100
 
 /**
  * Тривиальная
@@ -83,7 +83,7 @@ fun angleInRadian(grad: Int, min: Int, sec: Int): Double = ((grad * ((min * 60 +
  * Найти длину отрезка, соединяющего точки на плоскости с координатами (x1, y1) и (x2, y2).
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
-fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double = sqrt (sqr (x1 + x2) + sqr (y1 + y2))
+fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double = sqrt(sqr(x2 - x1)+(sqr(y2 - y1))
 
 
 /**
@@ -112,23 +112,23 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  *
  * Человек положил в банк сумму в s рублей под p% годовых (проценты начисляются в конце года).
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
- * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
- */
-fun accountInThreeYears(initial: Int, percent: Int): Double = {
-    val x = pow(1 + percent * 0.01, 3)
-    return initial * x
-}
+    * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
+    */
+    fun accountInThreeYears(initial: Int, percent: Int): Double = {
+        val x = pow(1 + percent * 0.01, 3)
+        return initial * x
+    }
 
 
 
-/**
- * Простая
- *
- * Пользователь задает целое трехзначное число (например, 478).
- * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
- */
-fun numberRevert(number: Int): Int {
-    val unsortedList = ListOf(1, 2, 3, 4, )
-    assertEquals(ListOf(4, 3, 2, 1), unsortedList.reverse())
+    /**
+     * Простая
+     *
+     * Пользователь задает целое трехзначное число (например, 478).
+     * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
+     */
+    fun numberRevert(number: Int): Int {
+        val unsortedList = ListOf(1, 2, 3, 4, )
+        assertEquals(ListOf(4, 3, 2, 1), unsortedList.reverse())
 }
 
