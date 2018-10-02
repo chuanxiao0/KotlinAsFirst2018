@@ -1,6 +1,7 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson1.task1
 
+import kotlinx.html.InputType
 import kotlin.math.*
 
 /**
@@ -86,20 +87,19 @@ fun angleInRadian(grad: Int, min: Int, sec: Int): Double =
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
 fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double =
-        sqrt(sqr(x2 - x1)+(sqr(y2 - y1))
+        sqrt(sqr(x2 - x1) + (sqr(y2 - y1))
 
 
 /**
- * Простая
+ #* Простая
  *
  * Пользователь задает целое число, большее 100 (например, 3801).
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
-fun thirdDigit(number: Int): Int {
-    val x = number % 1000
-    return x/100
+fun thirdDigit (InputType.number: Int): Int {
+    val x = InputType.number % 1000
+    return x / 100
 }
-
 /**
  * 
  * Простая
@@ -119,22 +119,24 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  *
  * Человек положил в банк сумму в s рублей под p% годовых (проценты начисляются в конце года).
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
-    * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
-    */
-    fun accountInThreeYears(initial: Int, percent: Int): Double {
-        val x = (1 + percent * 0.01, 3)
-        return initial * x
+ * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
+ */
+fun accountInThreeYears(initial: Int, percent: Int): Double {
+    val x = (1 + percent * 0.01)
+    return initial * x
 }
 
 
-    /**
-     * Простая
-     *
-     * Пользователь задает целое трехзначное число (например, 478).
-     * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
-     */
-    fun numberRevert(number: Int): Int {
-        val unsortedList = List(1, 2, 3, 4, )
-        assertEquals(List(4, 3, 2, 1), unsortedList.reverse())
+/**
+ * Простая
+ *
+ * Пользователь задает целое трехзначное число (например, 478).
+ * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
+ */
+fun numberRevert(number: Int): Int {
+    val a = (number / 100)
+    val b = (number - a * 100) / 10
+    val c = (number - 10 * b - 100 * b)
+    return 100 * c + 10 * b + a
 }
 
