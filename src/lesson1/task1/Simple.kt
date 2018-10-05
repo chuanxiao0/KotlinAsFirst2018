@@ -96,17 +96,17 @@ fun angleInRadian(grad: Int, min: Int, sec: Int): Double =
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
 fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double =
-        sqrt(sqr(x2 - x1) + (sqr(y2 - y1))
+        sqrt(sqr(x2 - x1) + (sqr(y2 - y1)))
 
 
 /**
- #* Простая
+ * Простая
  *
  * Пользователь задает целое число, большее 100 (например, 3801).
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
-fun thirdDigit (InputType.number: Int): Int {
-    val x = InputType.number % 1000
+fun thirdDight(number: Int): Int {
+    val x = number % 1000
     return x / 100
 }
 /**
