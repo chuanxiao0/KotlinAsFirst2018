@@ -45,7 +45,10 @@ fun daysInMonth(month: Int, year: Int): Int = TODO()
  * Вернуть true, если утверждение верно
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
-                 x2: Double, y2: Double, r2: Double): Boolean = TODO()
+                 x2: Double, y2: Double, r2: Double): Boolean {
+    val L = Math.sqrt(sqr(x2 - x1)) + sqr(y2 - y1)
+    return (L <= (r2 - r1))
+}
 
 /**
  * Средняя
