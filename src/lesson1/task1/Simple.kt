@@ -2,6 +2,7 @@
 package lesson1.task1
 
 import kotlinx.html.InputType
+import java.lang.Math.pow
 import kotlin.math.*
 
 /**
@@ -129,14 +130,12 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Простая
  *
  * Человек положил в банк сумму в s рублей под p% годовых (проценты начисляются в конце года).
- * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
- * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
+ * Сколько денег буде под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double {
-    val x = (1 + percent * 0.01)
+    val x = pow(1 + percent * 0.01, 3.0)
     return initial * x
 }
-
 
 /**
  * Простая
@@ -150,4 +149,3 @@ fun numberRevert(number: Int): Int {
     val c = (number - 10 * b - 100 * a)
     return 100 * c + 10 * b + a
 }
-

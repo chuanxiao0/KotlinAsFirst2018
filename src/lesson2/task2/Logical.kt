@@ -46,7 +46,7 @@ fun daysInMonth(month: Int, year: Int): Int = TODO()
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
                  x2: Double, y2: Double, r2: Double): Boolean {
-    val L = Math.sqrt(sqr(x2 - x1)) + sqr(y2 - y1)
+    val L = Math.sqrt(sqr(x2 - x1) + sqr(y2 - y1))
     return (L <= (r2 - r1))
 }
 
@@ -59,4 +59,7 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = TODO()
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
+        b * c <= r * s ||
+                a * c <= r * s ||
+                a * b <= r * s
