@@ -56,17 +56,19 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
     return -sqrt(y3)           // 7
 }
 
-/**
- * Простая
- *
- * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
- * вернуть строку вида: «21 год», «32 года», «12 лет».
- */
-fun ageDescription(age: Int): String {
-    if (age % 100 in 5..20) return "$age лет"
-    if (age % 10 == 1) return "$age год"
-    if (age % 10 in 2..4) return "$age года"
-    return "$age лет"
+    /**
+     * Простая
+     *
+     * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
+     * вернуть строку вида: «21 год», «32 года», «12 лет».
+     */
+fun ageDescription(age: Int): String = when (age) {
+    in 5..20 % 100 -> "$age лет"
+    1 % 10 -> "$age год"
+    in 2..4 -> "$age года"
+    21, 31, 41, 51 -> "$age год"
+    122, 132, 142, 152 -> "$age года"
+    else -> "$age лет"
 }
 
 /**
@@ -84,7 +86,7 @@ fun timeForHalfWay(t1: Double, v1: Double,
     val x3 = v3 * t3
     val h = (x1 + x2 + x3) / 2
     return if (h <= x1) h / v1
-    else if ((h > x1) and (h <= x1 + x2)) t1 + ((h - x1) / v2)
+    else if ((h > x1) && (h <= x1 + x2)) t1 + ((h - x1) / v2)
     else t2 + t1 + ((h - x1 - x2) / v3)
 
 }
@@ -103,7 +105,7 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX2: Int, rookY2: Int): Int {
     val rook1: Boolean = kingX == rookX1 || kingY == rookY1
     val rook2: Boolean = kingX == rookX2 || kingY == rookY2
-    if (!rook1 && rook2) return 0
+    if (!rook1 && !rook2) return 0
     else if (rook1 && rook2) return 3
     else if (rook1) return 1
     return 2
@@ -125,10 +127,10 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
     if ((kingX == rookX || kingY == rookY)&&
             (Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY)))
         return 3
-    else if ((kingX == rookX || kingY == rookY)&&
+    if ((kingX == rookX || kingY == rookY)&&
             (Math.abs(kingX - bishopX) != Math.abs(kingY - bishopY)))
         return 1
-    else if (Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY)&&
+    if (Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY)&&
             (kingX != rookX && kingY != rookY))
         return 2
     else return 0

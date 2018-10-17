@@ -122,7 +122,7 @@ fun thirdDigit(number: Int): Int {
  */
 fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
     val x = (hoursArrive * 60 + minutesArrive)
-    val y = (hoursDepart * 60 + minutesArrive)
+    val y = (hoursDepart * 60 + minutesDepart)
     return x - y
 }
 
