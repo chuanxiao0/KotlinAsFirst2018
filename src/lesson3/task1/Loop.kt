@@ -179,7 +179,15 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var m = 0
+    var num = n
+    do {
+        m = (m * 10 + (num % 10))
+        num /= 10
+    } while (num > 0)
+    return m
+}
 
 /**
  * Средняя
