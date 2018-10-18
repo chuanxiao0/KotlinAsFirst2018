@@ -1,8 +1,10 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson2.task1
 
+import kotlinx.html.A
 import lesson1.task1.discriminant
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
@@ -139,7 +141,17 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val maxSide = max(max(a, b), c)
+    val minSide = min(min(a, b), c)
+    val anotherSide = (a + b + c) - (maxSide + minSide)
+    return when {
+        maxSide > (minSide + anotherSide) -> -1
+        maxSide == sqrt((minSide * minSide + anotherSide * anotherSide)) -> 1
+        maxSide < sqrt((minSide * minSide + anotherSide * anotherSide)) -> 0
+        else -> 2
+    }
+}
 
 /**
  * Средняя
