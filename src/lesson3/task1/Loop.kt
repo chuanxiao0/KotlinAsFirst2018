@@ -103,12 +103,10 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var x = Math.max(n, m)
-    while (x in 1..n * m) {
-        if (x % n != 0 || x % m != 0) x += 1
-        else return x
-    }
-    return x
+    if (m > n) {
+
+    } else if (m % n == 0) return lcm(n, m % n)
+    return (m * n) / lcm(n, m % n)
 }
 
 /**
@@ -135,7 +133,7 @@ fun maxDivisor(n: Int): Int = TODO()
 fun isCoPrime(m: Int, n: Int): Boolean {
     var x = 1
     for (i in 2..m) {
-        if (m % i ==0 && n % i == 0)
+        if (m % i == 0 && n % i == 0)
             x = 0
     }
     return x != 0
@@ -148,7 +146,15 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
+fun squareBetweenExists(m: Int, n: Int): Boolean {
+    for (i in m..n) {
+        if (Math.sqrt(i.toDouble()) ==
+                Math.sqrt(i.toDouble()).toInt().toDouble()){
+            return true
+        }
+    }
+    return false
+}
 
 /**
  * Средняя
@@ -175,7 +181,18 @@ fun collatzSteps(x: Int): Int = TODO()
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    var n = 0
+    var sin = x
+    var part = Double.POSITIVE_INFINITY
+    while (Math.abs(part) * 1000 > Math.abs(eps)) {
+        n++
+        part = Math.pow(x, n * 2.0 + 1) / factorial(n * 2 * 1)
+        if (2 % n == 0) sin += part
+        else sin -= part
+    }
+    return sin
+}
 
 /**
  * Средняя
