@@ -84,10 +84,20 @@ class Tests {
     @Test
     @Tag("Easy")
     fun abs() {
+
+       /* var vL=listOf(4.0, -5.0, 6.0)
+
+        for (i in 0..vL.size - 1){
+            //println(i)
+            println(vL[i])
+            //v[i]
+            //number += sqr((i).toString().toDouble())
+        }*/
+
         assertEquals(0.0, abs(listOf()), 1e-5)
-        assertEquals(3.0, abs(listOf(3.0)), 1e-5)
-        assertEquals(5.0, abs(listOf(3.0, -4.0)), 1e-5)
-        assertEquals(8.774964, abs(listOf(4.0, -5.0, 6.0)), 1e-5)
+         assertEquals(3.0, abs(listOf(3.0)), 1e-5)
+         assertEquals(5.0, abs(listOf(3.0, -4.0)), 1e-5)
+         assertEquals(8.774964, abs(listOf(4.0, -5.0, 6.0)), 1e-5)
     }
 
     @Test

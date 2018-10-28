@@ -1,6 +1,7 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson3.task1
 
+import java.lang.Math.pow
 import kotlin.math.sqrt
 
 /**
@@ -102,11 +103,16 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int {
-    if (m > n) {
-
-    } else if (m % n == 0) return lcm(n, m % n)
-    return (m * n) / lcm(n, m % n)
+fun lcm(m: Int, n: Int) {
+    var gcd = 1
+    var i = 1
+    while (i <= m && i <= n) {
+        if (m % i == 0 && n % i == 0)
+            gcd = 1
+        ++i
+    }
+    val lcm = m * n / gcd
+    println("THE lcm OF $m and $n is $lcm")
 }
 
 /**
@@ -149,7 +155,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
 fun squareBetweenExists(m: Int, n: Int): Boolean {
     for (i in m..n) {
         if (Math.sqrt(i.toDouble()) ==
-                Math.sqrt(i.toDouble()).toInt().toDouble()){
+                Math.sqrt(i.toDouble()).toInt().toDouble()) {
             return true
         }
     }
@@ -187,7 +193,7 @@ fun sin(x: Double, eps: Double): Double {
     var part = Double.POSITIVE_INFINITY
     while (Math.abs(part) * 1000 > Math.abs(eps)) {
         n++
-        part = Math.pow(x, n * 2.0 + 1) / factorial(n * 2 * 1)
+        part = Math.pow(x, n * 2.0 + 1) / factorial(n * 2 + 1)
         if (2 % n == 0) sin += part
         else sin -= part
     }
@@ -229,7 +235,15 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    var a = 0
+    var m = 0
+    while (m > 0) {
+        a = a * 10 + m % 10
+        m /= 10
+    }
+    if (a == n) return true else return false
+}
 
 /**
  * Средняя
@@ -261,4 +275,16 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Double = TODO()/* {
+    var count = 1
+    var fib1 = 0
+    var fib2 = 0
+    var currentFib = 1
+    while (count < n) {
+        fib1 = fib2
+        fib2 = currentFib
+        currentFib = fib1 + fib2
+        count += digitNumber(currentFib)
+    }
+    return currentFib / pow(10.0, count - n) % 10
+}
