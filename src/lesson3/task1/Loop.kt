@@ -120,14 +120,25 @@ fun lcm(m: Int, n: Int) {
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    var m = 2
+    while (n % m != 0)
+        m += 1
+    return m
+}
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    if (n % 2 == 0) return n / 2
+    var m = n / 2
+    while (n % m != 0)
+        m -= 1
+    return m
+}
 
 /**
  * Простая
@@ -178,7 +189,17 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var y = x
+    var counter = 0
+    while (y != 1) {
+        if (y % 2 == 0)
+            y /= 2
+        else y = y * 3 + 1
+        counter += 1
+    }
+    return counter
+}
 
 /**
  * Средняя
@@ -275,7 +296,7 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Double = TODO()/* {
+fun fibSequenceDigit(n: Int): Double = TODO()/*{
     var count = 1
     var fib1 = 0
     var fib2 = 0
@@ -287,4 +308,4 @@ fun fibSequenceDigit(n: Int): Double = TODO()/* {
         count += digitNumber(currentFib)
     }
     return currentFib / pow(10.0, count - n) % 10
-}
+} */

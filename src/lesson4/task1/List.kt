@@ -4,6 +4,7 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
+import lesson3.task1.minDivisor
 import kotlin.math.sqrt
 
 /**
@@ -116,13 +117,13 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()/*{
+fun abs(v: List<Double>): Double {
     var number = 0.0
     for (i in 0..v.size - 1) {
         number += sqr(v[i].toDouble())
     }
     return Math.sqrt(number)
-}*/
+}
 
 /**
  * Простая
@@ -152,7 +153,18 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
-fun times(a: List<Double>, b: List<Double>): Double = TODO()
+fun times(a: List<Double>, b: List<Double>): Double {
+    var t = 0.0
+    if (a.isEmpty() == true) return 0.0
+    else for (element1 in a) {
+        for (element2 in b) {
+            if (a.indexOf(element1) == b.indexOf(element2)) {
+                t = t + element1 * element2
+            }
+        }
+    }
+    return t
+}
 
 /**
  * Средняя
@@ -162,7 +174,18 @@ fun times(a: List<Double>, b: List<Double>): Double = TODO()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double = TODO()
+fun polynom(p: List<Double>, x: Double): Double {
+    var px = 0.0
+    var i = 0.0
+    if (p.isEmpty()) return px
+    else {
+        for (element in p) {
+            px += element * Math.pow(x, i)
+            i++
+        }
+    }
+    return px
+}
 
 /**
  * Средняя
@@ -174,7 +197,14 @@ fun polynom(p: List<Double>, x: Double): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
+fun accumulate(list: MutableList<Double>): MutableList<Double> {
+    if (list.isEmpty() || list.size == 1) return list
+    else {
+        for (i in 1..list.size - 1)
+            list[i] += list[i - 1]
+    }
+    return list
+}
 
 /**
  * Средняя
@@ -183,7 +213,17 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    var nn = n
+    var minDivior: Int
+    var result = listOf<Int>()
+    while (nn > 1) {
+        minDivior = minDivisor(nn)
+        result += minDivior
+        nn /= minDivior
+    }
+    return result
+}
 
 /**
  * Сложная
