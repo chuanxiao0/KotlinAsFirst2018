@@ -67,19 +67,17 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int {
-    return if (n == 0) 1
-    else {
-        var number = Math.abs(n)
-        var result = 0
-        while (number > 0) {
-            number /= 10
-            result += 1
+fun digitNumber(n: Int): Int =
+        if (n == 0) 1
+        else {
+            var number = Math.abs(n)
+            var result = 0
+            while (number > 0) {
+                number /= 10
+                result += 1
+            }
+            result
         }
-        return result
-    }
-}
-
 /**
  * Простая
  *
@@ -103,16 +101,13 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int) {
-    var gcd = 1
-    var i = 1
-    while (i <= m && i <= n) {
-        if (m % i == 0 && n % i == 0)
-            gcd = 1
-        ++i
+fun lcm(m: Int, n: Int): Int {
+    var k = Math.max(n, m)
+    while (k in 1..n * m) {
+        if (k % n != 0 || k % m != 0) k += 1
+        else return k
     }
-    val lcm = m * n / gcd
-    println("THE lcm OF $m and $n is $lcm")
+    return k
 }
 
 /**
@@ -208,18 +203,18 @@ fun collatzSteps(x: Int): Int {
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sin(x: Double, eps: Double): Double {
+fun sin(x: Double, eps: Double): Double = TODO()/*{
     var n = 0
     var sin = x
     var part = Double.POSITIVE_INFINITY
     while (Math.abs(part) * 1000 > Math.abs(eps)) {
         n++
         part = Math.pow(x, n * 2.0 + 1) / factorial(n * 2 + 1)
-        if (2 % n == 0) sin += part
+        if (n % 2 == 0) sin += part
         else sin -= part
     }
     return sin
-}
+}*/
 
 /**
  * Средняя
@@ -258,12 +253,12 @@ fun revert(n: Int): Int {
  */
 fun isPalindrome(n: Int): Boolean {
     var a = 0
-    var m = 0
+    var m = n
     while (m > 0) {
         a = a * 10 + m % 10
         m /= 10
     }
-    if (a == n) return true else return false
+    return a == n
 }
 
 /**
@@ -285,7 +280,20 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var digitNumber = 0
+    var digit = 0
+    var cv = 0
+    while (digitNumber < n) {
+        digit += 1
+        cv = digit * digit
+        digitNumber += digitNumber(cv)
+    }
+    for (a in 1..digitNumber - n) {
+        cv /= 10
+    }
+    return cv % 10
+}
 
 /**
  * Сложная
@@ -296,7 +304,7 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Double = TODO()/*{
+fun fibSequenceDigit(n: Int): Int {
     var count = 1
     var fib1 = 0
     var fib2 = 0
@@ -307,5 +315,5 @@ fun fibSequenceDigit(n: Int): Double = TODO()/*{
         currentFib = fib1 + fib2
         count += digitNumber(currentFib)
     }
-    return currentFib / pow(10.0, count - n) % 10
-} */
+    return (currentFib / pow(10.0, (count - n).toDouble()) % 10).toInt()
+}

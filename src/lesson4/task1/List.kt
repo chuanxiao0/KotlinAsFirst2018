@@ -119,8 +119,8 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  */
 fun abs(v: List<Double>): Double {
     var number = 0.0
-    for (i in 0..v.size - 1) {
-        number += sqr(v[i].toDouble())
+    for (element in v) {
+        number += sqr(element)
     }
     return Math.sqrt(number)
 }
@@ -130,11 +130,10 @@ fun abs(v: List<Double>): Double {
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()/*{
-    for (i in 0..list.size) {
-        number += (list[i].toDouble()) / list.size
-    }
-}*/
+fun mean(list: List<Double>): Double {
+    if (list.isEmpty()) return 0.0
+    return list.sum() / list.size
+}
 
 /**
  * Средняя
@@ -144,7 +143,13 @@ fun mean(list: List<Double>): Double = TODO()/*{
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> {
+    val x = mean(list)
+    for (i in 0 until list.size) {
+        list[i] -= x
+    }
+    return list
+}
 
 /**
  * Средняя
@@ -154,17 +159,13 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
 fun times(a: List<Double>, b: List<Double>): Double {
-    var t = 0.0
-    if (a.isEmpty() == true) return 0.0
-    else for (element1 in a) {
-        for (element2 in b) {
-            if (a.indexOf(element1) == b.indexOf(element2)) {
-                t = t + element1 * element2
-            }
-        }
+    var x = 0.0
+    for (i in 0 until a.size) {
+        x += a[i] * b[i]
     }
-    return t
+    return x
 }
+
 
 /**
  * Средняя
@@ -177,12 +178,9 @@ fun times(a: List<Double>, b: List<Double>): Double {
 fun polynom(p: List<Double>, x: Double): Double {
     var px = 0.0
     var i = 0.0
-    if (p.isEmpty()) return px
-    else {
-        for (element in p) {
-            px += element * Math.pow(x, i)
-            i++
-        }
+    for (element in p) {
+        px += element * Math.pow(x, i)
+        i++
     }
     return px
 }
@@ -198,11 +196,8 @@ fun polynom(p: List<Double>, x: Double): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
-    if (list.isEmpty() || list.size == 1) return list
-    else {
-        for (i in 1..list.size - 1)
-            list[i] += list[i - 1]
-    }
+    for (i in 1..list.size - 1)
+        list[i] += list[i - 1]
     return list
 }
 
@@ -232,7 +227,7 @@ fun factorize(n: Int): List<Int> {
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя
@@ -241,7 +236,16 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    if (n == 0) return listOf(0)
+    var k = n
+    var sys = listOf<Int>()
+    while (k > 0) {
+        sys += k % base
+        k /= base
+    }
+    return sys.reversed()
+}
 
 /**
  * Сложная
@@ -260,7 +264,8 @@ fun convertToString(n: Int, base: Int): String = TODO()
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int = TODO()
+fun decimal(digits: List<Int>, base: Int): Int =
+        polynom(digits.map { it.toDouble() }.reversed(), base.toDouble()).toInt()
 
 /**
  * Сложная
