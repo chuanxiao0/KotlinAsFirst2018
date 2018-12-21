@@ -97,7 +97,12 @@ fun dateDigitToStr(digital: String): String = TODO()
  * Все символы в номере, кроме цифр, пробелов и +-(), считать недопустимыми.
  * При неверном формате вернуть пустую строку
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String {
+    val parts = phone.filter { it !in "- ()" }
+    if (phone.drop(1).any { it == '+' }) return ""
+    if (parts.any { it !in '0'..'9' && it != '+' } || parts == "+") return ""
+    return parts
+}
 
 /**
  * Средняя
@@ -109,7 +114,15 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    val parts = jumps.split(" ").filter { it !in "-%" }
+    try {
+        val result = parts.map { it.toInt() }
+        return result.max() ?: -1
+    } catch (e: NumberFormatException) {
+        return -1
+    }
+}
 
 /**
  * Сложная
@@ -121,7 +134,18 @@ fun bestLongJump(jumps: String): Int = TODO()
  * Прочитать строку и вернуть максимальную взятую высоту (230 в примере).
  * При нарушении формата входной строки вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    val parts = jumps.split(" ")
+    val L = mutableListOf<String>()
+    try {
+        for (i in 1..parts.size - 1 step 2) {
+            if ('+' in parts[i]) L.add(parts[i - 1])
+        }
+        return L.map { it.toInt() }.max() ?: -1
+    } catch (e: NumberFormatException) {
+        return -1
+    }
+}
 
 /**
  * Сложная
@@ -134,6 +158,7 @@ fun bestHighJump(jumps: String): Int = TODO()
  */
 fun plusMinus(expression: String): Int = TODO()
 
+
 /**
  * Сложная
  *
@@ -143,7 +168,17 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val parts = str.toLowerCase().split(" ")
+    var n = 0
+    if (parts.size < 2) return -1
+    for (i in 1..parts.size - 1) {
+        if (parts[i] == parts[i - 1])
+            return n
+        n += parts[i - 1].length + 1
+    }
+    return -1
+}
 
 /**
  * Сложная
@@ -156,7 +191,26 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше либо равны нуля.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    try {
+        val members = description.split("; ")
+        var stringName = ""
+        var max = 0.0
+        for (i in 0..members.size - 1) {
+            val partOfMembers = members[i].split(" ")
+            if (partOfMembers[partOfMembers.size - 1].toDouble() >= max) {
+                max = partOfMembers[partOfMembers.size - 1].toDouble()
+                stringName = ""
+                for (j in 0..partOfMembers.size - 2) stringName += partOfMembers[j]
+            }
+        }
+        return stringName
+    } catch (e: IndexOutOfBoundsException) {
+        return ""
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+}
 
 /**
  * Сложная
