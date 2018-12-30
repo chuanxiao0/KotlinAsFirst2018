@@ -255,7 +255,16 @@ fun convert(n: Int, base: Int): List<Int> {
  * строчными буквами: 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    val xyz = convert(n, base)
+    val alphabet = "abcdefghijklmnopqrstuvwxyz"
+    val numb = StringBuilder()
+    for (element in xyz) {
+        if (element < 10) numb.append(element.toString())
+        else numb.append(alphabet[element - 10].toString())
+    }
+    return numb.toString()
+}
 
 /**
  * Средняя
@@ -276,7 +285,16 @@ fun decimal(digits: List<Int>, base: Int): Int =
  * 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: str = "13c", base = 14 -> 250
  */
-fun decimalFromString(str: String, base: Int): Int = TODO()
+fun decimalFromString(str: String, base: Int): Int {
+    val list = mutableListOf<Int>()
+    for (v in 0..str.length - 1) {
+        var number = str[v].toInt()
+        if (number > '9'.toInt()) number += -'a'.toInt() + 10
+        else number += -'1'.toInt() + 1
+        list.add(number)
+    }
+    return decimal(list, base)
+}
 
 /**
  * Сложная
@@ -286,7 +304,23 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    var number = n
+    val listDigs = listOf(1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000)
+    val listChrs = listOf("I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M")
+    var string = ""
+    while (number > 0) {
+        for (v in listDigs.size - 1 downTo 0) {
+            if (number - listDigs[v] >= 0) {
+                number -= listDigs[v]
+                string += listChrs[v]
+                break
+            }
+        }
+
+    }
+    return string
+}
 
 /**
  * Очень сложная
