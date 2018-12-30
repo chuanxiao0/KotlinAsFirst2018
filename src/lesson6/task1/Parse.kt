@@ -58,7 +58,7 @@ fun main(args: Array<String>) {
         println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     }
 }
-
+val mthNames = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
 
 /**
  * Средняя
@@ -71,7 +71,20 @@ fun main(args: Array<String>) {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val part = str.split(" ")
+    if (part.size == 3) {
+        try {
+            val d = part[0].toInt()
+            val y = part[2].toInt()
+            val mth = mthNames.indexOf(part[1]) + 1
+            if (mth == 0) return ""
+            return String.format("%02d.%02d.%d", d, mth, y)
+        } catch (e: NumberFormatException) {
+            return ""
+        }
+    } else return ""
+}
 
 /**
  * Средняя
@@ -83,7 +96,20 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val part = digital.split(".")
+    if (part.size == 3) {
+        try {
+            val d = part[0].toInt()
+            val monthNumbers = part[1].toInt()
+            if (monthNumbers !in 1..12) return ""
+            val mth = mthNames[monthNumbers - 1]
+            return String.format("%d %s %s", d, mth, part[2])
+        } catch (e: NumberFormatException) {
+            return ""
+        }
+    } else return ""
+}
 
 /**
  * Средняя
@@ -223,7 +249,38 @@ fun mostExpensive(description: String): String {
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
+fun fromRoman(roman: String): Int {
+    val mapRoman = hashMapOf("I" to 1, "IV" to 4, "V" to 5, "IX" to 9, "X" to 10, "XL" to 40,
+            "L" to 50, "XC" to 90, "C" to 100, "CD" to 400, "D" to 500, "CM" to 900, "M" to 1000)
+
+    var t = 0
+    var result = 0
+    while (t < roman.length) {
+        if (roman.length - t - 1 > 0) {
+            val romanStr = roman.substring(t, t + 2)
+            if (romanStr in mapRoman) {
+                val mapValue = mapRoman[romanStr]
+                if (mapValue != null) {
+                    result += mapValue
+                    t += 2
+                    continue
+                }
+            }
+        }
+        val romanStr = roman[t].toString()
+        if (romanStr in mapRoman) {
+            val mapValue = mapRoman[romanStr]
+            if (mapValue != null) {
+                result += mapValue
+                t++
+                continue
+            }
+        } else return -1
+    }
+
+    return result
+}
+
 
 /**
  * Очень сложная
